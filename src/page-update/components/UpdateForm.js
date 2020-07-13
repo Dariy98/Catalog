@@ -4,12 +4,13 @@ import * as firebase from 'firebase';
 import { Button } from 'react-bootstrap';
 
 
-export default function FormUpdate () {
-    const [title, setTitle] = useState("")
-    const [desc, setDesc] = useState("")
-    const [price, setPrice] = useState("")
-    const [discount, setSale] = useState("")
-    const [date, setDate] = useState("")
+export default function FormUpdate ({id}) {
+    const [title, setTitle] = useState("");
+    const [photo, setPhoto] = useState("");
+    const [desc, setDesc] = useState("");
+    const [price, setPrice] = useState("");
+    const [discount, setSale] = useState("");
+    const [date, setDate] = useState("");
 
     const validateTitle = (value) => {
         let error;
@@ -81,15 +82,22 @@ export default function FormUpdate () {
         } else {
             error = "Error"
         }
+        setPhoto(value)
         return error;
     }
     
     const upDateData = (id) => {
-        //пока что просто пробное id из базы
-        id = 1594565913674
+
+        console.log("id зашло", id)
+
         if(title !== "") {
             firebase.database().ref(`products/${id}`).update({
                 title: title
+            })
+        }
+        if(photo !== undefined) {
+            firebase.database().ref(`products/${id}`).update({
+                img: photo
             })
         }
         if(desc !== "") {
@@ -113,7 +121,7 @@ export default function FormUpdate () {
             })
         }
 
-        alert(`Sent date for update: ", ${title}, ${desc}, ${price}, ${discount}, ${date}`)
+        alert(`Sent date for update: ", ${title}, ${photo}, ${desc}, ${price}, ${discount}, ${date}`)
     }
 
     return(
@@ -130,13 +138,13 @@ export default function FormUpdate () {
         >
           {({ errors, touched, validateField, validateForm }) => (
             <Form>
-              <Field name="title" validate={validateTitle} className="form-title"/>
+              <Field name="title" validate={validateTitle} className="form-title" placeholder="Title"/>
               {errors.title && touched.title && <div>{errors.title}</div>}
 
-              <Field name="foto" validate={validateFoto} className="form-foto" type="file"/>
+              <Field name="foto" validate={validateFoto} className="form-foto" placeholder="URL card image"/>
               {errors.foto && touched.foto && <div>{errors.foto}</div>}
     
-              <Field name="username" validate={validateDesc} className="form-desc"/>
+              <Field name="username" validate={validateDesc} className="form-desc" placeholder="Description"/>
               {errors.username && touched.username && <div>{errors.username}</div>}
 
               <Field name="price" validate={validatePrice} className="form-price" placeholder="Example 99.00"/>
@@ -148,7 +156,7 @@ export default function FormUpdate () {
               <Field name="date" validate={validateDate} className="form-date" placeholder="Example DD/MM/YYYY"/>
               {errors.date && touched.date && <div>{errors.date}</div>}
 
-              <Button variant="success" size="lg" block type="submit" onClick={upDateData} className="button-add">
+              <Button variant="success" size="lg" block onClick={() => {upDateData(id)}} className="button-add">
                 Update product
               </Button>
 

@@ -6,6 +6,7 @@ import { Button } from 'react-bootstrap';
 
 export default function FormAdd () {
     const [titleValue, setTitle] = useState("")
+    const [photo, setPhoto] = useState("")
     const [desc, setDesc] = useState("")
     const [cost, setPrice] = useState("")
     const [sale, setSale] = useState("")
@@ -80,6 +81,7 @@ export default function FormAdd () {
         } else {
             error = "Error"
         }
+        setPhoto(value)
         return error;
     }
 
@@ -88,6 +90,7 @@ export default function FormAdd () {
     const sendData = () => {
         firebase.database().ref(`products/${generatorID()}`).set({
             title: titleValue,
+            img: photo,
             desc: desc,
             price: cost,
             discount: sale,
@@ -110,13 +113,13 @@ export default function FormAdd () {
         >
           {({ errors, touched, validateField, validateForm }) => (
             <Form>
-              <Field name="title" validate={validateTitle} className="form-title" required/>
+              <Field name="title" validate={validateTitle} className="form-title" placeholder="Title" required/>
               {errors.title && touched.title && <div>{errors.title}</div>}
 
-              <Field name="foto" validate={validateFoto} className="form-foto" type="file" required/>
+              <Field name="foto" validate={validateFoto} className="form-foto" placeholder="URL card image" required/>
               {errors.foto && touched.foto && <div>{errors.foto}</div>}
     
-              <Field name="username" validate={validateDesc} className="form-desc"/>
+              <Field name="username" validate={validateDesc} className="form-desc" placeholder="Description"/>
               {errors.username && touched.username && <div>{errors.username}</div>}
 
               <Field name="price" validate={validatePrice} className="form-price" placeholder="Example 99.00" required/>

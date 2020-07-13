@@ -1,13 +1,12 @@
 import React from 'react'
 import FormUpdate from './UpdateForm'
-import { Button } from 'react-bootstrap';
 
 
-export default function Main () {
+export default function Main ({id}) {
     return(
         <main className="main">
             <h1>Update product</h1>
-            <FormUpdate/>
+            <FormUpdate id={id}/>
         </main>
     )
 }

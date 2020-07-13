@@ -6,13 +6,13 @@ import {
   Switch,
   Route
 } from "react-router-dom";
-import PageCards from './page-cargs/Page_Cards'
+import PageCards from './page-cargs/Page_Cards';
 import PageAdd from './page-add/Page_Add';
-import PageUpdate from './page-update/Page_Update'
-import PageSingIn from './page-login/Page_Sing_In'
-import LoginForm from './page-login/Page_Login'
-import Welcome from './page-welcome/Welcome'
-import * as firebase from 'firebase'
+import PageUpdate from './page-update/Page_Update';
+import PageSingIn from './page-login/Page_Sing_In';
+import LoginForm from './page-login/Page_Login';
+import Welcome from './page-welcome/Welcome';
+import * as firebase from 'firebase';
 
 
 function App() {
@@ -40,7 +40,7 @@ function App() {
           <Route path="/add">
             <PageAdd/>
           </Route>
-          <Route path="/update">
+          <Route path="/update/:id">
             <PageUpdate/>
           </Route>
         </Switch>
