@@ -1,0 +1,63 @@
+.App {
+  width: 1220px;
+  margin: 0 auto;
+}
+.main {
+  background-color: #e5e5e5;
+  padding: 15px;
+}
+.cards-grid {
+  margin-top: 12px;
+}
+.mb-3,
+.form-group {
+  margin-top: 50px;
+}
+.form-title,
+.form-desc,
+.form-price,
+.form-dicount,
+.form-date,
+.form-foto {
+  width: 100%;
+  margin-top: 35px;
+}
+.form-desc {
+  padding: 5px 0 105px 10px;
+}
+.welcome,
+.page-login {
+  background-color: yellow;
+  padding-top: 100px;
+  padding-bottom: 100px;
+  margin-top: 150px;
+  padding: 20px;
+}
+.title {
+  text-align: center;
+  font-weight: 600;
+  padding-bottom: 40px;
+}
+.button-welcome {
+  margin-bottom: 40px;
+}
+.input-login {
+  width: 95%;
+  border-color: violet;
+  margin-top: 50px;
+  height: 50px;
+  padding-left: 7px;
+}
+.page-login {
+  background-color: turquoise;
+}
+.submit {
+  background-color: #54F434;
+  width: 200px;
+  height: 40px;
+  border: 1px solid green;
+  margin-top: 40px;
+}
+.button-add {
+  margin-top: 40px;
+}
