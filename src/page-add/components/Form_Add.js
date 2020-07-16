@@ -165,6 +165,10 @@ export default function FormAdd () {
                 Add product
               </Button>
 
+              <Button variant="success" size="lg" block type="submit" onClick={sendData} className="button-add">
+              send data
+              </Button>
+
             </Form>
           )}
         </Formik>
