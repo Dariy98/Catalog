@@ -6,11 +6,12 @@ import { Button } from 'react-bootstrap';
 
 export default function FormAdd () {
     const [titleValue, setTitle] = useState("")
-    const [photo, setPhoto] = useState("")
+    // const [photo, setPhoto] = useState("")
     const [desc, setDesc] = useState("")
     const [cost, setPrice] = useState("")
     const [sale, setSale] = useState("")
     const [date, setDate] = useState("")
+    const [file, setFile] = useState(null)
 
     const validateTitle = (value) => {
         let error;
@@ -81,7 +82,7 @@ export default function FormAdd () {
         } else {
             error = "Error"
         }
-        setPhoto(value)
+        // setPhoto(value)
         return error;
     }
 
@@ -90,13 +91,40 @@ export default function FormAdd () {
     const sendData = () => {
         firebase.database().ref(`products/${generatorID()}`).set({
             title: titleValue,
-            img: photo,
+            // img: photo,
             desc: desc,
             price: cost,
             discount: sale,
             date: date
         }).then(()=> alert("Data is send!"))
           .catch(error => console.log(error, "error"))
+    }
+
+    const handleChange = (e) => {
+        if(e.target.files[0]) {
+            const img = e.target.files[0]
+            setFile(img)
+            console.log(img)
+        }
+        // setFiles(files)
+        // console.log(files)
+    }
+
+    const handleSave = () => {
+        let uploadTask = firebase.storage().ref(`images/${file.name}`).put(file)
+        uploadTask.on("state_changed", 
+        (snapshot) => {
+
+        }, 
+        (error) => {
+            console.log(error)
+        }, 
+        //достать файл
+        () => {
+            firebase.storage().ref("images").child(file.name).getDownloadURL().then(url => {
+                console.log(url)
+            })
+        })
     }
 
     return(
@@ -116,7 +144,9 @@ export default function FormAdd () {
               <Field name="title" validate={validateTitle} className="form-title" placeholder="Title" required/>
               {errors.title && touched.title && <div>{errors.title}</div>}
 
-              <Field name="foto" validate={validateFoto} className="form-foto" placeholder="URL card image" required/>
+              {/* <Field name="foto" validate={validateFoto} className="form-foto" placeholder="URL card image" required/>
+              {errors.foto && touched.foto && <div>{errors.foto}</div>} */}
+              <Field name="foto" validate={validateFoto} type="file" className="form-foto" onChange={handleChange} required/>
               {errors.foto && touched.foto && <div>{errors.foto}</div>}
     
               <Field name="username" validate={validateDesc} className="form-desc" placeholder="Description"/>
@@ -131,7 +161,7 @@ export default function FormAdd () {
               <Field name="date" validate={validateDate} className="form-date" placeholder="Example DD/MM/YYYY"/>
               {errors.date && touched.date && <div>{errors.date}</div>}
 
-              <Button variant="success" size="lg" block type="submit" onClick={sendData} className="button-add">
+              <Button variant="success" size="lg" block type="submit" onClick={handleSave} className="button-add">
                 Add product
               </Button>
 
