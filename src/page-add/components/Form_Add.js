@@ -100,32 +100,32 @@ export default function FormAdd () {
           .catch(error => console.log(error, "error"))
     }
 
-    const handleChange = (e) => {
-        if(e.target.files[0]) {
-            const img = e.target.files[0]
-            setFile(img)
-            console.log(img)
-        }
-        // setFiles(files)
-        // console.log(files)
-    }
+    // const handleChange = (e) => {
+    //     if(e.target.files[0]) {
+    //         const img = e.target.files[0]
+    //         setFile(img)
+    //         console.log(img)
+    //     }
+    //     // setFiles(files)
+    //     // console.log(files)
+    // }
 
-    const handleSave = () => {
-        let uploadTask = firebase.storage().ref(`images/${file.name}`).put(file)
-        uploadTask.on("state_changed", 
-        (snapshot) => {
+    // const handleSave = () => {
+    //     let uploadTask = firebase.storage().ref(`images/${file.name}`).put(file)
+    //     uploadTask.on("state_changed", 
+    //     (snapshot) => {
 
-        }, 
-        (error) => {
-            console.log(error)
-        }, 
-        //достать файл
-        () => {
-            firebase.storage().ref("images").child(file.name).getDownloadURL().then(url => {
-                console.log(url)
-            })
-        })
-    }
+    //     }, 
+    //     (error) => {
+    //         console.log(error)
+    //     }, 
+    //     //достать файл
+    //     () => {
+    //         firebase.storage().ref("images").child(file.name).getDownloadURL().then(url => {
+    //             console.log(url)
+    //         })
+    //     })
+    // }
 
     return(
         <div>
